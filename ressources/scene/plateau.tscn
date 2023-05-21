@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://kgn121akurx6"]
+
+[ext_resource type="Script" path="res://script/plateau.gd" id="1_38um5"]
+
+[node name="plateau" type="Node3D"]
+script = ExtResource("1_38um5")
