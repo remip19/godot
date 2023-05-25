@@ -15,7 +15,7 @@ mesh_token = ExtResource("4_6u2bc")
 material_token = ExtResource("5_fi032")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.32171e-08, -0.149967, 0.988691, -6.55526e-09, 0.988691, 0.149967, -1, -4.44089e-16, -4.37114e-08, 10, 4, 3.5)
+transform = Transform3D(-4.37114e-08, 0.149535, -0.988756, 0, 0.988756, 0.149535, 1, 6.5364e-09, -4.32199e-08, -10, 4, 3.5)
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
