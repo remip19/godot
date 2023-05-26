@@ -2,7 +2,7 @@ extends MeshInstance3D
 class_name Jeton
 
 var y_final: int
-
+var is_moving: bool = true
 
 func _init(column:int,y_start:int,_y_final):
 	transform.origin=Vector3(0,y_start,column)
@@ -16,5 +16,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	transform.origin.y -= delta
+	
+	# Vérifie si le pion a atteint la dernière rangée (y_final)
+	if transform.origin.y <= y_final:
+		is_moving = false
+		transform.origin.y = y_final
 
+#v=v+a*delta
+#p=p+v*delta     p= position   graviter négative pour dessendre = a    a =-10     v=-2

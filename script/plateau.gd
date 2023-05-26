@@ -3,6 +3,7 @@
 extends Node3D
 class_name Plateau
 
+
 @export var size: Vector2i = Vector2i(7, 6): 
 	get:return size
 	set(value):
@@ -19,6 +20,7 @@ class_name Plateau
 @export var material_token: ShaderMaterial
 var player_material:Array[ShaderMaterial]
 var jeton_values: Array[int]
+
 
 func reset_jeton_values():
 	jeton_values.clear()
@@ -37,16 +39,19 @@ func _ready():
 	rebuild()
 	set_player_material()
 	ajouter_jeton(1,1)
+	#await(get_tree().create_timer(1.0))
 	ajouter_jeton(2,2)
 	ajouter_jeton(3,1)
-
+	ajouter_jeton(3,2)#erreur superposition
+	#ajouter_jeton(3,1)
+	#ajouter_jeton(2,1)
+	
 func _process(_delta):
 	pass
 
 
 func _physics_process(_delta):
 	pass
-
 
 var nb_column: int:
 	get:return size.x

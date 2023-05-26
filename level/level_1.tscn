@@ -19,3 +19,6 @@ transform = Transform3D(-4.37114e-08, 0.149535, -0.988756, 0, 0.988756, 0.149535
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
