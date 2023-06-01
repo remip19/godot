@@ -3,4 +3,4 @@
 extends Object
 class_name Autoload_Global
 
-const JETON = {"V_INIT":-2,"ACCELERATION":-10}
+var JETON:ConstanteJeton=ConstanteJeton.new()

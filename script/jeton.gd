@@ -11,7 +11,7 @@ func _init(column:int,y_start:int,_y_final):
 	pass
 
 func _process(delta):
-	transform.origin.y -= delta
+	transform.origin.y += delta*Global.JETON.VITESSE_INITIALE
 	
 	# Vérifie si le pion a atteint la dernière rangée (y_final)
 	if transform.origin.y <= y_final:
