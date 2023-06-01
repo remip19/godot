@@ -11,10 +11,11 @@ config_version=5
 [application]
 
 config/name="puissance4"
-run/main_scene="res://level/level_1.tscn"
+run/main_scene="res://level/Menu_principale.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://script/Global/Autoload_Global.gd"
+Manager="*res://script/Manager/Autoload_Manager.gd"

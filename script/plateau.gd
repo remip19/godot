@@ -38,15 +38,12 @@ func _add_case(x: int, y: int):
 func _ready():
 	rebuild()
 	set_player_material()
-	ajouter_jeton(1,1)
-	#await(get_tree().create_timer(1.0))
-	ajouter_jeton(2,2)
-	ajouter_jeton(3,1)
-	ajouter_jeton(3,2)#erreur superposition
-	#ajouter_jeton(3,1)
-	#ajouter_jeton(2,1)
 	
+var t:float=0
+var player=0
+
 func _process(_delta):
+
 	pass
 
 
@@ -82,6 +79,7 @@ func ajouter_jeton(column:int, player_value:int)->bool:
 	var hauteur: int = final_height(column)
 	if hauteur >= size.y: return false
 	var j=Jeton.new(column,size.y, hauteur)
+	jeton_values[size.y*column+hauteur]=player_value
 	add_child(j)
 	j.mesh= mesh_token
 	j.set_surface_override_material(0,player_material[player_value-1])

@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://bchiw55w1u0xf"]
+
+[ext_resource type="Script" path="res://script/menu/MenuPrincipale.gd" id="1_mk4l1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mehhf"]
+font_size = 55
+font_color = Color(1, 0.803922, 0.576471, 1)
+
+[node name="Menu_principale" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mk4l1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.4, 0, 0.4, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Puissance 4"
+label_settings = SubResource("LabelSettings_mehhf")
+horizontal_alignment = 1
+visible_ratio = -0.0909091
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_right = 400
+
+[node name="buttons" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Button_play" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/buttons"]
+layout_mode = 2
+focus_mode = 0
+text = "Play
+"
+
+[node name="Button_option" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/buttons"]
+layout_mode = 2
+focus_mode = 0
+text = "Option
+"
+
+[node name="Button_quit" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/buttons"]
+layout_mode = 2
+focus_mode = 0
+text = "Quit
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/buttons/Button_play" to="." method="resignal_button" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/buttons/Button_option" to="." method="resignal_button" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/buttons/Button_quit" to="." method="resignal_button" binds= [3]]
