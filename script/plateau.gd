@@ -18,6 +18,7 @@ class_name Plateau
 @export_group("jeton")
 @export var mesh_token: Mesh
 @export var material_token: ShaderMaterial
+@onready var label = $"../Label"
 var player_material:Array[ShaderMaterial]
 var jeton_values: Array[int]
 
@@ -38,13 +39,7 @@ func _add_case(x: int, y: int):
 func _ready():
 	rebuild()
 	set_player_material()
-	ajouter_jeton(1,1)
-	#await(get_tree().create_timer(1.0))
-	ajouter_jeton(2,2)
-	ajouter_jeton(3,1)
-	ajouter_jeton(3,2)#erreur superposition
-	#ajouter_jeton(3,1)
-	#ajouter_jeton(2,1)
+	
 	
 func _process(_delta):
 	pass
@@ -81,11 +76,18 @@ func ajouter_jeton(column:int, player_value:int)->bool:
 	if column >= size.x: return false
 	var hauteur: int = final_height(column)
 	if hauteur >= size.y: return false
+	jeton_values[column*size.y+hauteur] = player_value
 	var j=Jeton.new(column,size.y, hauteur)
 	add_child(j)
 	j.mesh= mesh_token
 	j.set_surface_override_material(0,player_material[player_value-1])
-	return false
+	var win = check_win()
+	label.text = str({"v" : check_vertical_win(column,hauteur), "h":check_Horizontal_win(column,hauteur), "\\":check_diagonal_descendante(column,hauteur), "/": check_diagonal_montante(column,hauteur)})
+	if win>0: print("win: ", win) 
+	elif win<0: print("égalité") 
+	else : print ("Rien")
+	
+	return true
 
 func set_player_material():
 	var m1:ShaderMaterial=material_token
@@ -95,3 +97,95 @@ func set_player_material():
 	player_material.append(m1)
 	player_material.append(m2)
 	pass
+	
+var player = 1
+	
+func DBG_play():
+	var column = randi()%size.x
+	if ajouter_jeton(column,player):
+		player^=3
+		#player^=0
+
+
+
+func check_win():
+	var b = false
+	#print("----------------------")
+	for c in range(size.x):
+		for h in range(size.y):
+			var index = size.y*c+h
+			if jeton_values[index] >0: 
+				b = int(check_vertical_win(c,h)) + int(check_Horizontal_win(c,h))*2 + int(check_diagonal_descendante(c,h))*4 + int(check_diagonal_montante(c,h))*8
+				
+				#print([c,h])
+				#print({"v" : check_vertical_win(c,h), "h":check_Horizontal_win(c,h), "\\":check_diagonal_descendante(c,h), "/": check_diagonal_montante(c,h)})
+				if b :
+					print(b) 
+					return jeton_values[index]
+					
+	return -1 if check_par() else 0
+	
+func check_par():
+	for i in range(size.y-1, size.y*size.x, size.y):
+		if jeton_values[i] == 0:
+			return false
+	return true
+	
+func check_vertical_win(column, hauteur):
+	var index = size.y*column+hauteur
+	var value = jeton_values[index]
+	var compteur = 1
+	var i = index
+	var h = hauteur
+	#on verifie si il y a des pion en dessous
+	while compteur < 4 && h > 0 && jeton_values[i-1] == value:
+		compteur +=1
+		h -= 1 
+		i -= 1
+		#if compteur > 4
+		
+	return compteur==4
+
+func check_Horizontal_win(column, hauteur):
+
+	var index = size.y*column+hauteur
+	var value = jeton_values[index]
+	var compteur = 0
+	var i = index
+	var max = size.x*size.y
+	
+	while compteur <4 && i < max && jeton_values[i] == value:
+		compteur +=1
+		i += size.y
+	return compteur ==4
+	
+func check_diagonal_descendante(column, hauteur):
+	var h = hauteur
+	var index = size.y*column+hauteur
+	var value = jeton_values[index]
+	var compteur = 0
+	var i = index
+	var max = size.x*size.y
+	while compteur <4 && i < max &&  h > 0 && jeton_values[i] == value:
+		compteur +=1
+		i += size.y -1
+		h -= 1 
+	return compteur ==4
+	
+func check_diagonal_montante(column, hauteur):
+	var h = hauteur
+	var index = size.y*column+hauteur
+	var value = jeton_values[index]
+	var compteur = 0
+	var i = index
+	var max = size.x*size.y
+	while compteur <4 && i < max &&  h < size.y && jeton_values[i] == value:
+		compteur +=1
+		i += size.y +1
+		h += 1 
+	return compteur == 4
+
+
+func _on_button_2_pressed():
+	rebuild()
+	pass # Replace with function body.
