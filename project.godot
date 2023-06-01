@@ -14,3 +14,7 @@ config/name="puissance4"
 run/main_scene="res://level/level_1.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://script/Global/Autoload_Global.gd"
